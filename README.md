@@ -1,1 +1,1 @@
-# escape-from-labyrinth
+# Escape from labyrinth
