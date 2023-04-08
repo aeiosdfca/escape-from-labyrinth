@@ -1,1 +1,2 @@
-# Escape from labyrinth
+# *Escape from labyrinth*
+## Игра написанная на языке программирования Python.
