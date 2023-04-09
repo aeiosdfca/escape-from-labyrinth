@@ -6,3 +6,9 @@
 * [Правила](#Rules)
 * [Цель](#Target)
 * [Планы](#Plans)
+
+===
+
+<a name="Description"></a> ОПИСАНИЕ
+
+
