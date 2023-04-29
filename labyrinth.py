@@ -1,5 +1,3 @@
-# Разработай свою игру в этом файле!
-
 from pygame import *
 from time import sleep
 
@@ -66,9 +64,9 @@ class Player(GameSprite):
 class Enemy(GameSprite):
     side = "up"
     def update(self):
-        if self.rect.y <= 90:
+        if self.rect.y <= win_height * 0.18:
             self.side = "down"
-        if self.rect.y >= win_height - 60:
+        if self.rect.y >= win_height - 0.12 * win_height:
             self.side = "up"
         if self.side == "up":
             self.rect.y -= self.speed
@@ -78,9 +76,9 @@ class Enemy(GameSprite):
 class Enemy2(GameSprite):
     side = "left"
     def update(self):
-        if self.rect.x <= 160:
+        if self.rect.x <= 0.228 * win_width:
             self.side = "right"
-        if self.rect.x >= win_width - 180:
+        if self.rect.x >= win_width - 0.257 * win_width:
             self.side = "left"
         if self.side == "left":
             self.rect.x -= self.speed
@@ -106,41 +104,49 @@ class Wall(sprite.Sprite):
         self.rect.x = wall_x
         self.rect.y = wall_y
 
-
 """Окно игры"""
 
-win_width = 700
-win_height = 500
+win_width = 800
+win_height = 600
 display.set_caption("б̴̗̰͑̉͜͡е̷̧͎͎̮̓̄͠г҈̨̲̳̖̇͞и̷̨̭̞͒͋̿̕.̸̨̯̲̓̋̓͞")
 window = display.set_mode((win_width, win_height))
 back = transform.scale(image.load(img_back), (win_width, win_height))
 
+speed_multiplyer = 1
+if win_width > 800 and speed_multiplyer < 1024:
+    speed_multiplyer *= 2
+elif win_width >= 1024 and speed_multiplyer < 1280:
+    speed_multiplyer *= 3
+elif win_width >= 1280 and speed_multiplyer < 1920:
+    speed_multiplyer *= 4
+elif win_width >= 1920:
+    speed_multiplyer *= 5
 
 """Персонажи"""
 
-hero = Player(img_hero, 5, win_height - 80, 20, 35, 1)
-monster = Enemy(img_enemy, win_width - 135, 300, 35, 55, 2)
-final = GameSprite(img_goal, win_width - 90, win_height - 85, 45, 73, 0)
-monster2 = Enemy2(img_enemy, win_width - 540, 30, 37, 60, 2)
+hero = Player(img_hero, 0.007 * win_width, win_height - 0.16 * win_height, 0.03 * win_width, 0.07 * win_height, 1 * speed_multiplyer)
+monster = Enemy(img_enemy, win_width - 0.193 * win_width, 0.6 * win_height, 0.05 * win_width, 0.11 * win_height, 2 * speed_multiplyer)
+final = GameSprite(img_goal, win_width - 0.128 * win_width, win_height - 0.17 * win_height, 0.064* win_width, 0.146 * win_height, 0)
+monster2 = Enemy2(img_enemy, win_width - 0.771 * win_width, 0.06 * win_height, 0.053 * win_width, 0.12 * win_height, 2 * speed_multiplyer)
 
 
 """Стены"""
 
-w1 = Wall(0, 0, 0, 0, 0, 160, 415)
-w2 = Wall(0, 0, 0, 0, 460, 200, 40)
-w3 = Wall(0, 0, 0, 140, 0, 515, 28)
-w4 = Wall(0, 0, 0, 200, 93, 130, 407)
-w5 = Wall(0, 0, 0, 330, 140, 40, 360)
-w6 = Wall(0, 0, 0, 360, 93, 95, 450)
-w7 = Wall(0, 0, 0, 455, 140, 40, 360)
-w8 = Wall(0, 0, 0, 485, 93, 40, 450)
-w9 = Wall(0, 0, 0, 505, 93, 50, 80)
-w10 = Wall(0, 0, 0, 515, 233, 40, 110)
-w11 = Wall(0, 0, 0, 515, 405, 40, 95)
-w12 = Wall(0, 0, 0, 605, 0, 45, 230)
-w13 = Wall(0, 0, 0, 605, 290, 45, 110)
-w14 = Wall(0, 0, 0, 635, 0, 65, 400)
-w15 = Wall(0, 0, 0, 660, 0, 40, 500)
+w1 = Wall(0, 0, 0, 0, 0, 0.229 * win_width, 0.83 * win_height)
+w2 = Wall(0, 0, 0, 0, 0.92 * win_height, 0.286 * win_width, 0.08 * win_height)
+w3 = Wall(0, 0, 0, 0.2 * win_width, 0, 0.736 * win_width, 0.056 * win_height)
+w4 = Wall(0, 0, 0, 0.286 * win_width, 0.186 * win_height, 0.187 * win_width, 0.814 * win_height)
+w5 = Wall(0, 0, 0, 0.472 * win_width, 0.28 * win_height, 0.057 * win_width, 0.72 * win_height)
+w6 = Wall(0, 0, 0, 0.513 * win_width, 0.186 * win_height, 0.137 * win_width, 0.9 * win_height)
+w7 = Wall(0, 0, 0, 0.649 * win_width, 0.28 * win_height, 0.057 * win_width, 0.72 * win_height)
+w8 = Wall(0, 0, 0, 0.693 * win_width, 0.186 * win_height, 0.057 * win_width, 0.9 * win_height)
+w9 = Wall(0, 0, 0, 0.721 * win_width, 0.186 * win_height, 0.071 * win_width, 0.16 * win_height)
+w10 = Wall(0, 0, 0, 0.735 * win_width, 0.466 * win_height, 0.057 * win_width, 0.22 * win_height)
+w11 = Wall(0, 0, 0, 0.735 * win_width, 0.81 * win_height, 0.057 * win_width, 0.19 * win_height)
+w12 = Wall(0, 0, 0, 0.864 * win_width, 0, 0.064 * win_width, 0.44 * win_height)
+w13 = Wall(0, 0, 0, 0.864 * win_width, 0.58 * win_height, 0.064 * win_width, 0.22 * win_height)
+w14 = Wall(0, 0, 0, 0.907 * win_width, 0, 0.093 * win_width, 0.8 * win_height)
+w15 = Wall(0, 0, 0, 0.942 * win_width, 0, 0.057 * win_width, win_height)
 
 
 """Группы спрайтов"""
